@@ -1,0 +1,94 @@
+{
+  "id": "1",
+  "task": "Titan Infrastructure",
+  "description": "Establish the foundational framework for the high-capacity metropolitan fiber network deployment across the northern urban corridor.",
+  "children": [
+    {
+      "id": "2",
+      "task": "Architectural Design",
+      "description": "Develop comprehensive blueprints and schematic diagrams for the underlying physical hardware and logical network pathways for the system.",
+      "children": [
+        {
+          "id": "4",
+          "task": "Topology Mapping",
+          "description": "Create detailed geographical maps illustrating the physical placement of nodes and the primary fiber optic cabling routes for efficiency.",
+          "children": [
+            {
+              "id": "10",
+              "task": "GIS Data Integration",
+              "description": "Incorporate existing geographical information system data to ensure accurate physical placement and avoid existing underground utilities."
+            },
+            {
+              "id": "11",
+              "task": "Node Site Selection",
+              "description": "Identify and verify optimal physical locations for hardware installation based on connectivity requirements and accessibility for maintenance."
+            }
+          ]
+        },
+        {
+          "id": "5",
+          "task": "Network Security Protocol",
+          "description": "Define the encryption standards and firewall configurations necessary to protect the data transmission integrity across the entire grid.",
+          "children": [
+            {
+              "id": "12",
+              "task": "Encryption Selection",
+              "description": "Evaluate and select the most robust cryptographic algorithms to secure sensitive data transmitted through the fiber optic network."
+            },
+            {
+              "id": "13",
+              "task": "Access Control Logic",
+              "description": "Establish strict authentication protocols for administrative access to the network management interface and physical hardware cabinets."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "task": "Execution Phase",
+      "description": "Commence the physical installation and hardware configuration based on the finalized architectural designs and security protocols established.",
+      "children": [
+        {
+          "id": "6",
+          "task": "Hardware Procurement",
+          "description": "Acquire all necessary fiber optic cables, high-speed routers, and specialized signal boosters required for the physical infrastructure.",
+          "children": [
+            {
+              "id": "14",
+              "task": "Vendor Negotiations",
+              "description": "Finalize contracts with hardware suppliers to ensure timely delivery of high-quality materials within the allocated project budget."
+            },
+            {
+              "id": "15",
+              "task": "Inventory Verification",
+              "description": "Perform rigorous quality checks on all incoming hardware to ensure compliance with the specified technical requirements and standards."
+            },
+            {
+              "id": "16",
+              "task": "Logistics Management",
+              "description": "Coordinate the transportation and secure storage of high-value hardware components at designated staging areas near installation sites."
+            }
+          ]
+        },
+        {
+          "id": "7",
+          "task": "Civil Engineering Works",
+          "description": "Execute the necessary excavation and conduit installation required to house the fiber optic cabling safely beneath the city streets.",
+          "children": [
+            {
+              "id": "17",
+              "task": "Trenching Operations",
+              "description": "Utilize specialized equipment to excavate precise pathways for the subterranean conduit network while minimizing disruption to traffic."
+            },
+            {
+              "id": "18",
+              "task": "Conduit Placement",
+              "description": "Install durable protective housing for the fiber optic cables to prevent damage from environmental factors or future construction activity."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
