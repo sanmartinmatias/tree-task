@@ -1,84 +1,66 @@
 "use client";
 import { motion } from "framer-motion";
-import { useRef, useEffect, useState } from "react";
+import { useState } from "react";
 
-const TaskNode = ({ node, parentCoords }) => {
-  const containerRef = useRef(null);
-  const [coords, setCoords] = useState({ x: 0, y: 0 });
-  const childCount = node.children?.length || 0;
-  const isValid = childCount === 0 || (childCount >= 2 && childCount <= 3);
-
-  const updateCoords = () => {
-    if (containerRef.current) {
-      // We use offsetLeft/Top because getBoundingClientRect changes with Zoom/Scale
-      const el = containerRef.current;
-      setCoords({
-        x: el.offsetLeft + el.offsetWidth / 2,
-        y: el.offsetTop
-      });
-    }
-  };
-
-  useEffect(() => {
-    updateCoords();
-  }, []);
-
+export default function TaskNode({ node, onPositionChange, setDraggingId, ParentY }) {
+  const topConstraint = ParentY !== undefined ? ParentY : -10000;
   return (
-    <div className="relative flex flex-col items-center">
-      {/* The Connecting Lines */}
-      {parentCoords && (
-        <svg className="absolute top-0 left-0 w-[2000px] h-[2000px] pointer-events-none -translate-x-1/2 -translate-y-full overflow-visible">
-          <line
-            x1={parentCoords.x}
-            y1={parentCoords.y}
-            x2={coords.x}
-            y2={coords.y}
-            stroke="#39FF14" // Neon Green for visibility
-            strokeWidth="4"
-          />
-        </svg>
-      )}
+    <motion.div
+      drag
+      dragMomentum={false}
+      dragConstraints={{
+        top: topConstraint,
+      }}
+      animate={{
+        x: node.pos.x,
+        y: node.pos.y
+      }}
+      // 2. Use a transition of 0 or a very high stiffness spring 
+      // so it doesn't "lag" behind the physics calculation
+      transition={{ type: "tween", duration: 0 }}
+      style={{
+        position: "absolute",
+        left: 0, // Ensure starting point is 0,0 relative to parent
+        top: 0,
+      }}
 
-      <motion.div
-        ref={containerRef}
-        drag
-        dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
-        dragElastic={0.5}
-        onDrag={updateCoords}
-        className={`w-64 shadow-[4px_4px_0px_rgba(0,0,0,0.4)] rounded-t-lg border-2 bg-[#ECE9D8] z-10 ${
-          isValid ? "border-[#0055E3]" : "border-red-600"
-        }`}
-      >
-        {/* XP Header */}
-        <div className={`px-2 py-1 flex justify-between items-center ${
-          isValid ? "bg-gradient-to-r from-[#0058e3] to-[#2f8cf5]" : "bg-red-600"
-        }`}>
-          <span className="text-white font-bold text-xs truncate uppercase">{node.task}</span>
-          <div className="flex gap-1">
-            <div className="w-3 h-3 bg-[#ec461d] border border-white" />
-          </div>
-        </div>
+      onDragStart={() => {
+        setDraggingId(node.id)
+      }}
 
-        {/* XP Body */}
-        <div className="p-4 bg-white m-[2px] border border-gray-400 min-h-[80px]">
-          <p className="text-[11px] text-gray-800 leading-tight">{node.description}</p>
-        </div>
-      </motion.div>
+      onDragEnd={(e, info) => {
+        onPositionChange(node.id, {
+          x: info.delta.x,
+          y: info.delta.y
+        });
+        setDraggingId(null)
+      }}
 
-      {/* Recursive Children */}
-      {childCount > 0 && (
-        <div className="flex flex-row justify-center gap-24 mt-20">
-          {node.children.map((child) => (
-            <TaskNode 
-              key={child.id} 
-              node={child} 
-              parentCoords={{ x: coords.x, y: coords.y + 120 }} 
-            />
-          ))}
-        </div>
-      )}
-    </div>
+      onDrag={(e, info) => {
+        const nextY = node.pos.y + info.delta.y;
+
+        let constrainedDeltaY = info.delta.y;
+        if (ParentY !== undefined && nextY < ParentY) {
+            constrainedDeltaY = ParentY - node.pos.y;
+        }
+
+        onPositionChange(node.id, {
+          x: info.delta.x,
+          y: constrainedDeltaY
+        });
+        setDraggingId(node.id)
+      }}
+
+
+      className="w-64 bg-[#ECE9D8] border-2 border-[#0055E3] shadow-[3px_3px_0px_#000] rounded-t-lg z-20 select-none"
+    >
+
+      <div className="bg-[#0058e3] px-2 py-1 flex justify-between cursor-move">
+        <span className="text-white font-bold text-[10px] uppercase">{node.task}</span>
+      </div>
+      <div className="p-3 bg-white m-[1px] border border-gray-400 min-h-[60px]">
+        <p className="text-[11px] text-gray-800">{node.description}</p>
+      </div>
+    </motion.div>
   );
-};
-
-export default TaskNode;
+}
