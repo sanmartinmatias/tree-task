@@ -1,0 +1,59 @@
+{
+  "config": {
+    "canvasWidth": 3000,
+    "canvasHeight": 3000,
+    "initialZoom": 0.8
+  },
+  "rootId": "1",
+  "nodes": {
+    "1": {
+      "id": "1",
+      "task": "Titan Infrastructure",
+      "description": "Core architecture for the Unity-based PvE online multiplayer game hosted on Vercel.",
+      "pos": { "x": 500, "y": 100 },
+      "children": ["2", "3"]
+    },
+    "2": {
+      "id": "2",
+      "task": "Network Design",
+      "description": "Establish real-time connectivity using serverless Redis functions to simulate a multiplayer environment.",
+      "pos": { "x": 300, "y": 400 },
+      "children": ["4", "5"]
+    },
+    "3": {
+      "id": "3",
+      "task": "Execution Phase",
+      "description": "Deployment and frontend integration of the game components.",
+      "pos": { "x": 700, "y": 400 },
+      "children": ["6", "7"]
+    },
+    "4": {
+      "id": "4",
+      "task": "Unity WebGL Integration",
+      "description": "Integrate Unity WebGL using react-unity-webgl and manage the component lifecycle.",
+      "pos": { "x": 150, "y": 700 },
+      "children": []
+    },
+    "5": {
+      "id": "5",
+      "task": "Redis Function Logic",
+      "description": "Implement serverless functions to update game state and provide the 'multiplayer feel'.",
+      "pos": { "x": 450, "y": 700 },
+      "children": []
+    },
+    "6": {
+      "id": "6",
+      "task": "Frontend UI Layout",
+      "description": "Develop the Header, Main, and Footer sections for the landing page using React and Vite.",
+      "pos": { "x": 650, "y": 700 },
+      "children": []
+    },
+    "7": {
+      "id": "7",
+      "task": "Deployment Pipeline",
+      "description": "Configure the Vercel hosting environment for the frontend and game assets.",
+      "pos": { "x": 850, "y": 700 },
+      "children": []
+    }
+  }
+}
